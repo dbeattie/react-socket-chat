@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   root: {
@@ -43,8 +43,10 @@ const styles = theme => ({
 });
 
 function Dashboard(props) {
-  const { classes } = props
+  const { classes } = props;
   
+  const [textValue, changeTextValue] = React.useState('');
+
   return (
     <div>
       <div>
@@ -79,6 +81,13 @@ function Dashboard(props) {
           </div>
         </div>
         <div className={classes.flex}>
+            <TextField 
+              id="standard-basic" 
+              label="Say Something..." 
+              className={classes.chatBox} 
+              value={textValue}
+              onChange={e => changeTextValue(e.target.value)}
+              />
             <Button variant="contained" color="primary">
               Send
             </Button>
