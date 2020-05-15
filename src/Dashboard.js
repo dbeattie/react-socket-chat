@@ -9,6 +9,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
 
 const styles = theme => ({
   root: {
@@ -35,6 +37,7 @@ const styles = theme => ({
     width: '85%'
   },
   button: {
+    margin: theme.spacing(1),
     width: '15%'
   },
 });
@@ -76,12 +79,9 @@ function Dashboard(props) {
           </div>
         </div>
         <div className={classes.flex}>
-          <div className={classes.chatBox}>
-
-          </div>
-          <div className={classes.button}>
-
-          </div>
+            <Button variant="contained" color="primary">
+              Send
+            </Button>
         </div>
       </Paper>
     </div>
