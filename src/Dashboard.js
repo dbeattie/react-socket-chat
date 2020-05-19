@@ -11,13 +11,14 @@ import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { CTX } from './Store'; 
 
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
     margin: '50px',
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   flex: {
     display: 'flex',
@@ -44,7 +45,14 @@ const styles = theme => ({
 
 function Dashboard(props) {
   const { classes } = props;
-  
+
+  // CTX Store
+  const [allChats] = React.useContext(CTX);
+  // console.log({allChats});
+  const topics = Object.keys(allChats);
+
+  // local state
+  const [activeTopic, changeActiveTopic] = React.useState(topics[0]);
   const [textValue, changeTextValue] = React.useState('');
 
   return (
@@ -55,14 +63,14 @@ function Dashboard(props) {
           React Socket Chat
         </Typography>
         <Typography variant="h5" component="h5">
-          Topic Placeholder
+          {activeTopic}
         </Typography>
         <div className={classes.flex}>
           <div className={classes.topicsWindow}>
             <List>
               {
-                ['topic'].map(topic => (
-                  <ListItem key={topic} button>
+                topics.map(topic => (
+                  <ListItem onClick={e => changeActiveTopic(e.target.innerText)} key={topic} button>
                     <ListItemText primary={topic} />
                   </ListItem>
                 ))
@@ -71,10 +79,10 @@ function Dashboard(props) {
           </div>
           <div className={classes.chatWindow}>
             {
-              [{from: 'user', msg: 'hello'}].map((chat, i) => (
+              allChats[activeTopic].map((chat, i) => (
                 <div className={classes.flex} key={i}>
                   <Chip label={chat.from} avatar={<Avatar src="/static/images/avatar/1.jpg" />} />
-                  <Typography variant='p'>{chat.msg}</Typography>
+                  <Typography variant='body1'>{chat.msg}</Typography>
                 </div>
               ))
             }
