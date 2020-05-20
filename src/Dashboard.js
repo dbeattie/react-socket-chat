@@ -47,9 +47,10 @@ function Dashboard(props) {
   const { classes } = props;
 
   // CTX Store
-  const [allChats] = React.useContext(CTX);
+  const {allChats, sendChatAction, user} = React.useContext(CTX);
   // console.log({allChats});
   const topics = Object.keys(allChats);
+  console.log('allChats:', allChats);
 
   // local state
   const [activeTopic, changeActiveTopic] = React.useState(topics[0]);
@@ -96,7 +97,16 @@ function Dashboard(props) {
               value={textValue}
               onChange={e => changeTextValue(e.target.value)}
               />
-            <Button variant="contained" color="primary">
+            <Button 
+              variant="contained" 
+              color="primary"
+              onClick={() => {
+                sendChatAction(
+                  { from: user, msg: textValue, topic: activeTopic }
+                  );
+                changeTextValue('');
+              }}
+              >
               Send
             </Button>
         </div>
